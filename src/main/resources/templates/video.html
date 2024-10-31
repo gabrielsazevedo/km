@@ -1,0 +1,38 @@
+<!-- templates/video.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${video.title}">Vídeo</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-button">← Voltar</a>
+        
+        <h1 th:text="${video.title}"></h1>
+        
+        <div class="video-player">
+            <video controls>
+                <source th:src="@{/video/{id}/data(id=${video.id})}" th:type="${video.contentType}">
+                Seu navegador não suporta a tag de vídeo.
+            </video>
+        </div>
+        
+        <div class="comments-section">
+            <h2>Comentários</h2>
+            
+            <form th:action="@{/video/{id}/comment(id=${video.id})}" method="post" class="comment-form">
+                <textarea name="content" placeholder="Adicione um comentário..." required></textarea>
+                <button type="submit">Comentar</button>
+            </form>
+            
+            <div class="comments-list">
+                <div th:each="comment : ${video.comments}" class="comment">
+                    <p th:text="${comment.content}"></p>
+                    <small th:text="${#temporals.format(comment.commentDate, 'dd/MM/yyyy HH:mm')}"></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
