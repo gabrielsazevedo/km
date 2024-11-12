@@ -2,14 +2,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Compartilhamento de Conhecimento</title>
+    <title>Software KM 0.2</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Compartilhamento de Conhecimento</h1>
-        
-        <div class="upload-section">
+        <header>
+            <h1>Plataforma de Gestão de Conhecimento</h1>
+        </header>
+    <div class="main-content">
+        <section class="upload-section">
             <h2>Upload de Vídeo</h2>
             <form action="/upload" method="post" enctype="multipart/form-data">
                 <div class="form-group">
@@ -22,27 +24,29 @@
                 </div>
                 <button type="submit">Enviar</button>
             </form>
-        </div>
+        </section>
         
-        <div class="search-section">
+        <section class="search-section">
             <h2>Buscar Vídeos</h2>
             <form action="/" method="get">
                 <div class="form-group">
                     <input type="text" name="search" placeholder="Buscar por título...">
-                    <button type="submit">Buscar</button>
                 </div>
+                <button type="submit">Buscar</button>
             </form>
-        </div>
-        
-        <div class="videos-list">
-            <h2>Vídeos Disponíveis</h2>
+        </section>
+    </div>
+    
+    <section class="videos-list">
+        <h2>Vídeos Disponíveis</h2>
+        <div class="video-cards-container">
             <div th:each="video : ${videos}" class="video-card">
                 <h3 th:text="${video.title}"></h3>
                 <p th:text="'Enviado em: ' + ${#temporals.format(video.uploadDate, 'dd/MM/yyyy HH:mm')}"></p>
                 <a th:href="@{/video/{id}(id=${video.id})}" class="button">Ver Vídeo</a>
             </div>
         </div>
-    </div>
+    </section>
+</div>
 </body>
 </html>
-
